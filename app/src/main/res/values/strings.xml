@@ -1,3 +1,17 @@
 <resources>
     <string name="app_name">WordGuessing</string>
+
+    <!--PreGameFragment-->
+    <string name="title_tv_txt">Word Guessing</string>
+    <string name="start_game_btn_txt">Start The Game</string>
+
+    <!--GameFragment-->
+    <string name="current_word_label_tv_txt">Word to be guessed:</string>
+    <string name="skip_btn_txt">SKIP</string>
+    <string name="correct_btn_txt">CORRECT</string>
+
+    <!--ScoreFragment-->
+    <string name="final_score_label_tv_txt">Your final score:</string>
+    <string name="play_again_btn_txt">Play Again</string>
+
 </resources>

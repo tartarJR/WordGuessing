@@ -1,7 +1,8 @@
-package com.tatar.wordguessing
+package com.tatar.wordguessing.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.tatar.wordguessing.R
 
 class MainActivity : AppCompatActivity() {
 

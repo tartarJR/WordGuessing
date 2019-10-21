@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/game_navigation"
+    app:startDestination="@id/pre_game_destination">
+
+    <fragment
+        android:id="@+id/pre_game_destination"
+        android:name="com.tatar.wordguessing.ui.screen.pregame.PreGameFragment"
+        android:label="pre_game_fragment">
+        <action
+            android:id="@+id/action_preGameFragment_to_gameFragment"
+            app:destination="@id/game_destination"
+            app:launchSingleTop="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/game_destination"
+        android:name="com.tatar.wordguessing.ui.screen.game.GameFragment"
+        android:label="game_fragment">
+        <action
+            android:id="@+id/action_gameFragment_to_scoreFragment"
+            app:destination="@id/score_destination"
+            app:launchSingleTop="true"
+            app:popUpTo="@+id/pre_game_destination" />
+    </fragment>
+    <fragment
+        android:id="@+id/score_destination"
+        android:name="com.tatar.wordguessing.ui.screen.score.ScoreFragment"
+        android:label="score_fragment">
+        <action
+            android:id="@+id/action_play_again"
+            app:destination="@id/game_destination"
+            app:launchSingleTop="true"
+            app:popUpTo="@+id/pre_game_destination" />
+        <argument
+            android:name="score"
+            app:argType="string"
+            android:defaultValue="0" />
+        <argument
+            android:name="completion_time"
+            app:argType="string"
+            android:defaultValue="00:00" />
+    </fragment>
+</navigation>

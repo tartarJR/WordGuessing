@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.navigation.fragment.findNavController
 
 import com.tatar.wordguessing.R
 import com.tatar.wordguessing.databinding.FragmentGameBinding
@@ -25,6 +26,14 @@ class GameFragment : Fragment() {
             container,
             false
         )
+
+        binding.correctBtn.setOnClickListener {
+            
+        }
+
+        binding.skipBtn.setOnClickListener {
+
+        }
 
         return binding.root
     }

@@ -2,12 +2,12 @@ package com.tatar.wordguessing.ui.screen.pregame
 
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-
+import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.tatar.wordguessing.R
 import com.tatar.wordguessing.databinding.FragmentPreGameBinding
 
@@ -25,6 +25,10 @@ class PreGameFragment : Fragment() {
             container,
             false
         )
+
+        binding.startGameBtn.setOnClickListener {
+            findNavController().navigate(PreGameFragmentDirections.actionPreGameFragmentToGameFragment())
+        }
 
         return binding.root
     }

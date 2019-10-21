@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.tatar.wordguessing.R
 import com.tatar.wordguessing.databinding.FragmentScoreBinding
 
@@ -23,6 +24,10 @@ class ScoreFragment : Fragment() {
             container,
             false
         )
+
+        binding.playAgainBtn.setOnClickListener {
+            findNavController().navigate(ScoreFragmentDirections.actionPlayAgain())
+        }
 
         return binding.root
     }

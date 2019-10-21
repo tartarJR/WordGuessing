@@ -33,11 +33,9 @@
             app:popUpTo="@+id/pre_game_destination" />
         <argument
             android:name="score"
-            app:argType="string"
-            android:defaultValue="0" />
+            app:argType="string" />
         <argument
             android:name="completion_time"
-            app:argType="string"
-            android:defaultValue="00:00" />
+            app:argType="string" />
     </fragment>
 </navigation>

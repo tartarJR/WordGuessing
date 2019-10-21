@@ -6,8 +6,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 
 import com.tatar.wordguessing.R
+import com.tatar.wordguessing.databinding.FragmentGameBinding
+import com.tatar.wordguessing.databinding.FragmentPreGameBinding
 
 
 class GameFragment : Fragment() {
@@ -16,9 +19,13 @@ class GameFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_game, container, false)
+        val binding: FragmentGameBinding = DataBindingUtil.inflate(
+            inflater,
+            R.layout.fragment_game,
+            container,
+            false
+        )
+
+        return binding.root
     }
-
-
 }

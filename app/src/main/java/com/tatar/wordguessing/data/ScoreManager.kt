@@ -12,12 +12,14 @@ class ScoreManager {
         return score
     }
 
-    fun increaseScore() {
+    fun increaseScore(): Score {
         score.finalScore++
+        return score
     }
 
-    fun decreaseScore() {
+    fun decreaseScore(): Score {
         score.finalScore--
+        return score
     }
 
     fun setTimeInSeconds(completionTimeInSeconds: Int) {

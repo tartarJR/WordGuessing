@@ -4,6 +4,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+
+        <variable
+            name="word"
+            type="String" />
+
+        <variable
+            name="score"
+            type="com.tatar.wordguessing.data.Score" />
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/game_fragment_layout"
         android:layout_width="match_parent"
@@ -25,32 +36,32 @@
             android:id="@+id/current_word_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="@{word,default=Basketball}"
             android:textSize="32sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="Basketball" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/count_down_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
+            android:text="@{String.valueOf(score.completionTimeInSeconds),default=0}"
             app:layout_constraintBottom_toTopOf="@+id/current_score_tv"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            tools:text="00:00" />
+            app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
             android:id="@+id/current_score_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
+            android:text="@{String.valueOf(score.finalScore),default=3}"
             app:layout_constraintBottom_toTopOf="@+id/guideline"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            tools:text="3" />
+            app:layout_constraintStart_toStartOf="parent" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline"

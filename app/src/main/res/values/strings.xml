@@ -9,6 +9,8 @@
     <string name="current_word_label_tv_txt">Word to be guessed:</string>
     <string name="skip_btn_txt">SKIP</string>
     <string name="correct_btn_txt">CORRECT</string>
+    <string name="count_down_label_tv_txt">Time left:</string>
+    <string name="score_label_tv_txt">Score:</string>
 
     <!--ScoreFragment-->
     <string name="final_score_label_tv_txt">Your final score:</string>

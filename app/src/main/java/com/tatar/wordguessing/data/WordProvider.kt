@@ -3,6 +3,7 @@ package com.tatar.wordguessing.data
 class WordProvider {
 
     private var wordList = listOf(
+        "arrow",
         "basketball",
         "king",
         "football",
@@ -11,11 +12,12 @@ class WordProvider {
         "snake",
         "kebab",
         "happy",
+        "blade",
+        "bat",
         "date",
         "chair",
         "piano",
         "subway",
-        "house",
         "house",
         "fish",
         "plane",
@@ -23,7 +25,9 @@ class WordProvider {
         "exchange",
         "backpack",
         "ride",
-        "sponge"
+        "sword",
+        "sponge",
+        "beer"
     )
 
     private lateinit var words: MutableList<String>

@@ -7,98 +7,63 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.fragment.NavHostFragment.findNavController
 import com.tatar.wordguessing.R
-import com.tatar.wordguessing.data.ScoreManager
-import com.tatar.wordguessing.data.WordProvider
 import com.tatar.wordguessing.databinding.FragmentGameBinding
 
 
 class GameFragment : Fragment() {
 
-    private lateinit var wordProvider: WordProvider
-    private lateinit var scoreManager: ScoreManager
-
     private lateinit var binding: FragmentGameBinding
+    private lateinit var viewModel: GameViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        initWords()
-        initScore()
-        setBindings(inflater, container)
+        viewModel = ViewModelProviders.of(this).get(GameViewModel::class.java)
+
+        setBinding(inflater, container)
+        setObservations()
         initViews()
 
         return binding.root
     }
 
-    private fun initWords() {
-        wordProvider = WordProvider()
-        wordProvider.refreshList()
-    }
-
-    private fun initScore() {
-        scoreManager = ScoreManager()
-        scoreManager.provideScore()
-    }
-
-    private fun setBindings(inflater: LayoutInflater, container: ViewGroup?) {
+    private fun setBinding(inflater: LayoutInflater, container: ViewGroup?) {
         binding = DataBindingUtil.inflate(
             inflater,
             R.layout.fragment_game,
             container,
             false
         )
-
-        binding.score = scoreManager.getScore()
-        binding.word = wordProvider.getWord()
     }
 
     private fun initViews() {
-        binding.correctBtn.setOnClickListener { onCorrectAnswer() }
-        binding.skipBtn.setOnClickListener { onSkipWord() }
+        binding.correctBtn.setOnClickListener { correctBtnClick() }
+        binding.skipBtn.setOnClickListener { skipBtnClick() }
     }
 
-    private fun onCorrectAnswer() {
-        if (wordProvider.isWordListEmpty()) {
-            navigateToScoreFragment()
-            return
-        }
-
-        displayNextWord()
-        displayIncreasedScore()
+    private fun setObservations() {
+        viewModel.scoreLiveData.observe(this, Observer { newScore -> binding.score = newScore })
+        viewModel.wordLiveData.observe(this, Observer { newWord -> binding.word = newWord })
     }
 
-    private fun displayIncreasedScore() {
-        scoreManager.increaseScore()
-        binding.score = scoreManager.getScore()
+    private fun correctBtnClick() {
+        viewModel.onCorrectAnswer()
     }
 
-    private fun onSkipWord() {
-        if (wordProvider.isWordListEmpty()) {
-            navigateToScoreFragment()
-            return
-        }
-
-        displayNextWord()
-        displayDecreasedScore()
-    }
-
-    private fun displayDecreasedScore() {
-        scoreManager.decreaseScore()
-        binding.score = scoreManager.getScore()
-    }
-
-    private fun displayNextWord() {
-        binding.word = wordProvider.getWord()
+    private fun skipBtnClick() {
+        viewModel.onSkipWord()
     }
 
     private fun navigateToScoreFragment() {
-        findNavController().navigate(
+        findNavController(this).navigate(
             GameFragmentDirections.actionGameFragmentToScoreFragment(
-                binding.score!!.finalScore,
-                binding.score!!.completionTimeInSeconds
+                viewModel.scoreLiveData.value!!.finalScore,
+                viewModel.scoreLiveData.value!!.completionTimeInSeconds
             )
         )
     }

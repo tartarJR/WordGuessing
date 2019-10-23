@@ -13,12 +13,12 @@ class GameViewModel : ViewModel(), GameResponse {
 
     private var _word = MutableLiveData<String>()
     private var _score = MutableLiveData<Int>()
-    private var _timeLeft = MutableLiveData<String>()
+    private var _timeLeft = MutableLiveData<Int>()
     private var _endGameEvent = MutableLiveData<Boolean>()
 
     val word: LiveData<String> get() = _word
     val score: LiveData<Int> get() = _score
-    val timeLeft: LiveData<String> get() = _timeLeft
+    val timeLeft: LiveData<Int> get() = _timeLeft
     val endGameEvent: LiveData<Boolean> get() = _endGameEvent
 
     init {
@@ -80,16 +80,16 @@ class GameViewModel : ViewModel(), GameResponse {
         gameTimer.stopGameTimer()
     }
 
-    override fun onNextSecond(formattedRemainingTime: String) {
-        _timeLeft.value = formattedRemainingTime
+    override fun onNextSecond(timeInSeconds: Int) {
+        _timeLeft.value = timeInSeconds
     }
 
     override fun onGameEnd() {
         _endGameEvent.value = true
-        _timeLeft.value = NO_TIME_LEFT_STRING
+        _timeLeft.value = NO_TIME_LEFT_IN_SECONDS
     }
 
     companion object {
-        private const val NO_TIME_LEFT_STRING = "0"
+        private const val NO_TIME_LEFT_IN_SECONDS = 0
     }
 }

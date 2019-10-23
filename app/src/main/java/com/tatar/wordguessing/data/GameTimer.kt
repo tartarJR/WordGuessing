@@ -12,7 +12,7 @@ class GameTimer(val gameAction: GameResponse) {
             ONE_SECOND_IN_MILLIS
         ) {
             override fun onTick(millisUntilFinished: Long) {
-                gameAction.onNextSecond(getFormattedTime(millisUntilFinished))
+                gameAction.onNextSecond(getTimeInSeconds(millisUntilFinished))
             }
 
             override fun onFinish() {
@@ -29,8 +29,8 @@ class GameTimer(val gameAction: GameResponse) {
         countDownTimer.cancel()
     }
 
-    private fun getFormattedTime(time: Long): String {
-        return (time / ONE_SECOND_IN_MILLIS).toString()
+    private fun getTimeInSeconds(time: Long): Int {
+        return (time / ONE_SECOND_IN_MILLIS).toInt()
     }
 
     companion object {
@@ -40,6 +40,6 @@ class GameTimer(val gameAction: GameResponse) {
 }
 
 interface GameResponse {
-    fun onNextSecond(formattedRemainingTime: String)
+    fun onNextSecond(timeInSeconds: Int)
     fun onGameEnd()
 }

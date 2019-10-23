@@ -37,8 +37,8 @@ class WordProvider {
         words.shuffle()
     }
 
-    fun isWordListNotEmpty(): Boolean {
-        return words.isNotEmpty()
+    fun isWordsEmpty(): Boolean {
+        return words.isEmpty()
     }
 
     fun getNextWord(): String {

@@ -14,12 +14,12 @@ class GameViewModel : ViewModel(), GameResponse {
     private var _word = MutableLiveData<String>()
     private var _score = MutableLiveData<Int>()
     private var _timeLeft = MutableLiveData<String>()
-    private var _eventEndGame = MutableLiveData<Boolean>()
+    private var _endGameEvent = MutableLiveData<Boolean>()
 
     val word: LiveData<String> get() = _word
     val score: LiveData<Int> get() = _score
     val timeLeft: LiveData<String> get() = _timeLeft
-    val eventEndGame: LiveData<Boolean> get() = _eventEndGame
+    val endGameEvent: LiveData<Boolean> get() = _endGameEvent
 
     init {
         initWord()
@@ -64,11 +64,11 @@ class GameViewModel : ViewModel(), GameResponse {
     }
 
     private fun initEventEndGame() {
-        _eventEndGame.value = false
+        _endGameEvent.value = false
     }
 
     fun onGameEndCompleted() {
-        _eventEndGame.value = false
+        _endGameEvent.value = false
     }
 
     fun getScoreString(): String {
@@ -85,7 +85,7 @@ class GameViewModel : ViewModel(), GameResponse {
     }
 
     override fun onGameEnd() {
-        _eventEndGame.value = true
+        _endGameEvent.value = true
         _timeLeft.value = NO_TIME_LEFT_STRING
     }
 

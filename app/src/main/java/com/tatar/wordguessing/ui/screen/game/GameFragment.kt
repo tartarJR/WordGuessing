@@ -53,7 +53,7 @@ class GameFragment : Fragment() {
         viewModel.score.observe(this, Observer { newScore -> binding.score = newScore })
         viewModel.word.observe(this, Observer { newWord -> binding.word = newWord })
         viewModel.timeLeft.observe(this, Observer { timeLeft -> binding.timeLeft = timeLeft })
-        viewModel.eventEndGame.observe(this, Observer { hasEnded -> if (hasEnded) finishGame() })
+        viewModel.endGameEvent.observe(this, Observer { hasEnded -> if (hasEnded) finishGame() })
     }
 
     private fun correctBtnClick() {

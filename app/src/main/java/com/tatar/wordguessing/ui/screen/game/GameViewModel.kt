@@ -72,7 +72,7 @@ class GameViewModel : ViewModel(), GameResponse {
     }
 
     fun getScoreString(): String {
-        return score.toString()
+        return score.value.toString()
     }
 
     override fun onCleared() {

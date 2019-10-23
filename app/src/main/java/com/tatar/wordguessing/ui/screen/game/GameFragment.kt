@@ -23,13 +23,16 @@ class GameFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        viewModel = ViewModelProviders.of(this).get(GameViewModel::class.java)
-
+        setViewModel()
         setBinding(inflater, container)
         setObservations()
         initViews()
 
         return binding.root
+    }
+
+    private fun setViewModel() {
+        viewModel = ViewModelProviders.of(this).get(GameViewModel::class.java)
     }
 
     private fun setBinding(inflater: LayoutInflater, container: ViewGroup?) {
@@ -49,6 +52,7 @@ class GameFragment : Fragment() {
     private fun setObservations() {
         viewModel.score.observe(this, Observer { newScore -> binding.score = newScore })
         viewModel.word.observe(this, Observer { newWord -> binding.word = newWord })
+        viewModel.timeLeft.observe(this, Observer { timeLeft -> binding.timeLeft = timeLeft })
         viewModel.eventEndGame.observe(this, Observer { hasEnded -> if (hasEnded) finishGame() })
     }
 
@@ -61,13 +65,7 @@ class GameFragment : Fragment() {
     }
 
     private fun finishGame() {
-        findNavController(this).navigate(
-            GameFragmentDirections.actionGameFragmentToScoreFragment(
-                binding.score!!.finalScore,
-                binding.score!!.completionTimeInSeconds
-            )
-        )
-
+        findNavController(this).navigate(GameFragmentDirections.actionGoToScoreFragment(viewModel.getScoreString()))
         viewModel.onGameEndCompleted()
     }
 }

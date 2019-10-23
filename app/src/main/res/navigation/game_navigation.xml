@@ -17,7 +17,7 @@
         android:name="com.tatar.wordguessing.ui.screen.game.GameFragment"
         android:label="game_fragment">
         <action
-            android:id="@+id/action_gameFragment_to_scoreFragment"
+            android:id="@+id/action_goToScoreFragment"
             app:destination="@id/score_destination"
             app:launchSingleTop="true"
             app:popUpTo="@+id/pre_game_destination" />
@@ -33,9 +33,6 @@
             app:popUpTo="@+id/pre_game_destination" />
         <argument
             android:name="score"
-            app:argType="integer" />
-        <argument
-            android:name="completion_time"
-            app:argType="integer" />
+            app:argType="string" />
     </fragment>
 </navigation>

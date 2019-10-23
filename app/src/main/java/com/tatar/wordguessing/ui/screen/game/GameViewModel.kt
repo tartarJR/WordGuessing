@@ -12,43 +12,53 @@ class GameViewModel : ViewModel() {
     private lateinit var wordProvider: WordProvider // TODO use DI
     private lateinit var scoreManager: ScoreManager // TODO use DI
 
-    private var _wordLiveData = MutableLiveData<String>()
-    private var _scoreLiveData = MutableLiveData<Score>()
+    private var _word = MutableLiveData<String>()
+    private var _score = MutableLiveData<Score>()
+    private var _eventEndGame = MutableLiveData<Boolean>()
 
-    val wordLiveData: LiveData<String> get() = _wordLiveData
-    val scoreLiveData: LiveData<Score> get() = _scoreLiveData
+    val word: LiveData<String> get() = _word
+    val score: LiveData<Score> get() = _score
+    val eventEndGame: LiveData<Boolean> get() = _eventEndGame
 
     init {
         initWord()
         initScore()
+
+        _eventEndGame.value = false
     }
 
     fun onCorrectAnswer() {
         scoreManager.increaseScore()
-        _scoreLiveData.value = scoreManager.getScore()
+        _score.value = scoreManager.getScore()
         updateWordIfWordsListNotEmpty()
     }
 
     fun onSkipWord() {
         scoreManager.decreaseScore()
-        _scoreLiveData.value = scoreManager.getScore()
+        _score.value = scoreManager.getScore()
         updateWordIfWordsListNotEmpty()
     }
 
     private fun updateWordIfWordsListNotEmpty() {
         if (wordProvider.isWordListNotEmpty())
-            _wordLiveData.value = wordProvider.getNextWord()
+            _word.value = wordProvider.getNextWord()
+        else
+            _eventEndGame.value = true
     }
 
     private fun initWord() {
         wordProvider = WordProvider()
         wordProvider.refreshList()
-        _wordLiveData.value = wordProvider.getNextWord()
+        _word.value = wordProvider.getNextWord()
     }
 
     private fun initScore() {
         scoreManager = ScoreManager()
         scoreManager.provideScore()
-        _scoreLiveData.value = scoreManager.getScore()
+        _score.value = scoreManager.getScore()
+    }
+
+    fun onGameEndCompleted() {
+        _eventEndGame.value = false
     }
 }

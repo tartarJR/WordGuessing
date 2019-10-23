@@ -47,8 +47,9 @@ class GameFragment : Fragment() {
     }
 
     private fun setObservations() {
-        viewModel.scoreLiveData.observe(this, Observer { newScore -> binding.score = newScore })
-        viewModel.wordLiveData.observe(this, Observer { newWord -> binding.word = newWord })
+        viewModel.score.observe(this, Observer { newScore -> binding.score = newScore })
+        viewModel.word.observe(this, Observer { newWord -> binding.word = newWord })
+        viewModel.eventEndGame.observe(this, Observer { hasEnded -> if (hasEnded) finishGame() })
     }
 
     private fun correctBtnClick() {
@@ -59,12 +60,14 @@ class GameFragment : Fragment() {
         viewModel.onSkipWord()
     }
 
-    private fun navigateToScoreFragment() {
+    private fun finishGame() {
         findNavController(this).navigate(
             GameFragmentDirections.actionGameFragmentToScoreFragment(
-                viewModel.scoreLiveData.value!!.finalScore,
-                viewModel.scoreLiveData.value!!.completionTimeInSeconds
+                binding.score!!.finalScore,
+                binding.score!!.completionTimeInSeconds
             )
         )
+
+        viewModel.onGameEndCompleted()
     }
 }

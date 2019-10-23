@@ -2,27 +2,19 @@ package com.tatar.wordguessing.data
 
 class ScoreManager {
 
-    private lateinit var score: Score
+    private var score = 0
 
-    fun provideScore() {
-        score = Score()
-    }
-
-    fun getScore(): Score {
+    fun getScore(): Int {
         return score
     }
 
-    fun increaseScore(): Score {
-        score.finalScore++
+    fun increaseScore(): Int {
+        score++
         return score
     }
 
-    fun decreaseScore(): Score {
-        score.finalScore--
+    fun decreaseScore(): Int {
+        score--
         return score
-    }
-
-    fun setTimeInSeconds(completionTimeInSeconds: Int) {
-        score.completionTimeInSeconds = completionTimeInSeconds
     }
 }

@@ -5,6 +5,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import com.tatar.wordguessing.data.*
+import com.tatar.wordguessing.helper.GameResponse
+import com.tatar.wordguessing.helper.GameTimer
 
 class GameViewModel : ViewModel(), GameResponse {
 

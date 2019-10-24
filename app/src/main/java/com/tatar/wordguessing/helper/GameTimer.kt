@@ -1,4 +1,4 @@
-package com.tatar.wordguessing.data
+package com.tatar.wordguessing.helper
 
 import android.os.CountDownTimer
 

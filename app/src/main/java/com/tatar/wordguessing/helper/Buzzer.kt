@@ -5,7 +5,6 @@ import android.content.Context.VIBRATOR_SERVICE
 import android.os.Build
 import android.os.VibrationEffect
 import android.os.Vibrator
-import android.util.Log
 
 
 class Buzzer(context: Context) {
@@ -13,8 +12,6 @@ class Buzzer(context: Context) {
     private var buzzer: Vibrator? = context.getSystemService(VIBRATOR_SERVICE) as Vibrator?
 
     fun buzz(buzzType: BuzzType) {
-        Log.d("Buzzer", buzzType.name)
-
         buzzer?.let {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 it.vibrate(

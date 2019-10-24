@@ -2,9 +2,10 @@ package com.tatar.wordguessing.ui.screen.game
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
-import com.tatar.wordguessing.data.*
+import com.tatar.wordguessing.data.ScoreManager
+import com.tatar.wordguessing.data.WordProvider
+import com.tatar.wordguessing.helper.Buzzer.BuzzType
 import com.tatar.wordguessing.helper.GameResponse
 import com.tatar.wordguessing.helper.GameTimer
 
@@ -18,13 +19,13 @@ class GameViewModel : ViewModel(), GameResponse {
     private var _score = MutableLiveData<Int>()
     private var _timeLeft = MutableLiveData<Int>()
     private var _endGameEvent = MutableLiveData<Boolean>()
-
-    val scoreString = Transformations.map(score) { score -> score.toString() }
+    private var _buzzEvent = MutableLiveData<BuzzType>()
 
     val word: LiveData<String> get() = _word
     val score: LiveData<Int> get() = _score
     val timeLeft: LiveData<Int> get() = _timeLeft
     val endGameEvent: LiveData<Boolean> get() = _endGameEvent
+    val buzzEvent: LiveData<BuzzType> get() = _buzzEvent
 
     init {
         initWord()
@@ -37,6 +38,7 @@ class GameViewModel : ViewModel(), GameResponse {
         scoreManager.increaseScore()
         _score.value = scoreManager.getScore()
         updateWordIfWordsListNotEmpty()
+        _buzzEvent.value = BuzzType.CORRECT
     }
 
     fun onSkipWord() {
@@ -76,21 +78,29 @@ class GameViewModel : ViewModel(), GameResponse {
         _endGameEvent.value = false
     }
 
+    fun onBuzzComplete() {
+        _buzzEvent.value = BuzzType.NO_BUZZ
+    }
+
     override fun onCleared() {
         super.onCleared()
         gameTimer.stopGameTimer()
     }
 
-    override fun onNextSecond(timeInSeconds: Int) {
-        _timeLeft.value = timeInSeconds
+    override fun onNextSecond(timeLeftInSeconds: Int) {
+        _timeLeft.value = timeLeftInSeconds
+        if (timeLeftInSeconds <= PANIC_START_TIME_IN_SECONDS) _buzzEvent.value =
+            BuzzType.COUNTDOWN_PANIC
     }
 
     override fun onGameEnd() {
         _endGameEvent.value = true
         _timeLeft.value = NO_TIME_LEFT_IN_SECONDS
+        _buzzEvent.value = BuzzType.GAME_OVER
     }
 
     companion object {
         private const val NO_TIME_LEFT_IN_SECONDS = 0
+        private const val PANIC_START_TIME_IN_SECONDS = 10
     }
 }

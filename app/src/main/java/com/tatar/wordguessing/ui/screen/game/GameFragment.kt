@@ -12,12 +12,15 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.NavHostFragment.findNavController
 import com.tatar.wordguessing.R
 import com.tatar.wordguessing.databinding.FragmentGameBinding
+import com.tatar.wordguessing.helper.Buzzer
+import com.tatar.wordguessing.helper.Buzzer.BuzzType
 
 
 class GameFragment : Fragment() {
 
     private lateinit var binding: FragmentGameBinding
     private lateinit var viewModel: GameViewModel
+    private lateinit var buzzer: Buzzer
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -26,6 +29,8 @@ class GameFragment : Fragment() {
         setViewModel()
         setBinding(inflater, container)
         setEventObservations()
+
+        buzzer = Buzzer(requireActivity())
 
         return binding.root
     }
@@ -48,10 +53,19 @@ class GameFragment : Fragment() {
 
     private fun setEventObservations() {
         viewModel.endGameEvent.observe(this, Observer { hasEnded -> if (hasEnded) finishGame() })
+        viewModel.buzzEvent.observe(
+            this,
+            Observer { buzzType ->
+                if (buzzType != BuzzType.NO_BUZZ) {
+                    buzzer.buzz(buzzType)
+                    viewModel.onBuzzComplete()
+                }
+            }
+        )
     }
 
     private fun finishGame() {
-        findNavController(this).navigate(GameFragmentDirections.actionGoToScoreFragment(viewModel.scoreString.value!!))
+        findNavController(this).navigate(GameFragmentDirections.actionGoToScoreFragment(viewModel.score.value!!))
         viewModel.onGameEndCompleted()
     }
 }

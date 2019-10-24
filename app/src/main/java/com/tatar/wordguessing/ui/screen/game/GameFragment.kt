@@ -29,9 +29,8 @@ class GameFragment : Fragment() {
         setViewModel()
         setBinding(inflater, container)
         setEventObservations()
-
-        buzzer = Buzzer(requireActivity())
-
+        setBuzzer()
+        
         return binding.root
     }
 
@@ -62,6 +61,10 @@ class GameFragment : Fragment() {
                 }
             }
         )
+    }
+
+    private fun setBuzzer() {
+        buzzer = Buzzer(requireActivity())
     }
 
     private fun finishGame() {

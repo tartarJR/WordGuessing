@@ -40,6 +40,6 @@ class GameTimer(val gameAction: GameResponse) {
 }
 
 interface GameResponse {
-    fun onNextSecond(timeInSeconds: Int)
+    fun onNextSecond(timeLeftInSeconds: Int)
     fun onGameEnd()
 }

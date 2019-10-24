@@ -25,8 +25,7 @@ class GameFragment : Fragment() {
     ): View? {
         setViewModel()
         setBinding(inflater, container)
-        setObservations()
-        initViews()
+        setEventObservations()
 
         return binding.root
     }
@@ -42,30 +41,17 @@ class GameFragment : Fragment() {
             container,
             false
         )
+
+        binding.gameViewModel = viewModel
+        binding.lifecycleOwner = this
     }
 
-    private fun initViews() {
-        binding.correctBtn.setOnClickListener { correctBtnClick() }
-        binding.skipBtn.setOnClickListener { skipBtnClick() }
-    }
-
-    private fun setObservations() {
-        viewModel.score.observe(this, Observer { newScore -> binding.score = newScore })
-        viewModel.word.observe(this, Observer { newWord -> binding.word = newWord })
-        viewModel.timeLeft.observe(this, Observer { timeLeft -> binding.timeLeft = timeLeft })
+    private fun setEventObservations() {
         viewModel.endGameEvent.observe(this, Observer { hasEnded -> if (hasEnded) finishGame() })
     }
 
-    private fun correctBtnClick() {
-        viewModel.onCorrectAnswer()
-    }
-
-    private fun skipBtnClick() {
-        viewModel.onSkipWord()
-    }
-
     private fun finishGame() {
-        findNavController(this).navigate(GameFragmentDirections.actionGoToScoreFragment(viewModel.getScoreString()))
+        findNavController(this).navigate(GameFragmentDirections.actionGoToScoreFragment(viewModel.scoreString.value!!))
         viewModel.onGameEndCompleted()
     }
 }

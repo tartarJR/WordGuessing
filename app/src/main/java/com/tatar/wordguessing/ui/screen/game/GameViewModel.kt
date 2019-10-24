@@ -2,6 +2,7 @@ package com.tatar.wordguessing.ui.screen.game
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import com.tatar.wordguessing.data.*
 
@@ -15,6 +16,8 @@ class GameViewModel : ViewModel(), GameResponse {
     private var _score = MutableLiveData<Int>()
     private var _timeLeft = MutableLiveData<Int>()
     private var _endGameEvent = MutableLiveData<Boolean>()
+
+    val scoreString = Transformations.map(score) { score -> score.toString() }
 
     val word: LiveData<String> get() = _word
     val score: LiveData<Int> get() = _score
@@ -69,10 +72,6 @@ class GameViewModel : ViewModel(), GameResponse {
 
     fun onGameEndCompleted() {
         _endGameEvent.value = false
-    }
-
-    fun getScoreString(): String {
-        return score.value.toString()
     }
 
     override fun onCleared() {

@@ -6,11 +6,12 @@
     <string name="start_game_btn_txt">Start The Game</string>
 
     <!--GameFragment-->
-    <string name="current_word_label_tv_txt">Word to be guessed:</string>
+    <string name="current_word_label_tv_txt">Word to be guessed</string>
     <string name="skip_btn_txt">SKIP</string>
     <string name="correct_btn_txt">CORRECT</string>
-    <string name="count_down_label_tv_txt">Time left:</string>
-    <string name="score_label_tv_txt">Score:</string>
+    <string name="count_down_tv_txt">Time left: %d</string>
+    <string name="score_tv_txt">Score: %d</string>
+    <string name="quote_format">\"%s\"</string>
 
     <!--ScoreFragment-->
     <string name="final_score_label_tv_txt">Your final score:</string>

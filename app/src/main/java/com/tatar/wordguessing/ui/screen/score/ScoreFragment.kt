@@ -27,8 +27,7 @@ class ScoreFragment : Fragment() {
     ): View? {
         setViewModel()
         setBinding(inflater, container)
-        setObservations()
-        initViews()
+        setEventObservations()
 
         return binding.root
     }
@@ -46,17 +45,20 @@ class ScoreFragment : Fragment() {
             container,
             false
         )
+
+        binding.scoreViewModel = viewModel
+        binding.lifecycleOwner = this
     }
 
-    private fun initViews() {
-        binding.playAgainBtn.setOnClickListener { restartGame() }
-    }
-
-    private fun setObservations() {
-        viewModel.score.observe(this, Observer { score -> binding.finalScore = score })
+    private fun setEventObservations() {
+        viewModel.restartGameEvent.observe(
+            this,
+            Observer { shouldRestart -> if (shouldRestart) restartGame() }
+        )
     }
 
     private fun restartGame() {
         findNavController().navigate(ScoreFragmentDirections.actionPlayAgain())
+        viewModel.onRestartGameComplete()
     }
 }

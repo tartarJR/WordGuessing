@@ -7,8 +7,8 @@
     <data>
 
         <variable
-            name="finalScore"
-            type="String" />
+            name="scoreViewModel"
+            type="com.tatar.wordguessing.ui.screen.score.ScoreViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -32,7 +32,7 @@
             android:id="@+id/final_score_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{finalScore,default=13}"
+            android:text="@{scoreViewModel.score,default=13}"
             android:textSize="32sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -44,6 +44,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="32dp"
+            android:onClick="@{()->scoreViewModel.onRestartGame()}"
             android:text="@string/play_again_btn_txt"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

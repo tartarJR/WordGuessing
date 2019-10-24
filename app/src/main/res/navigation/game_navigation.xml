@@ -33,6 +33,6 @@
             app:popUpTo="@+id/pre_game_destination" />
         <argument
             android:name="score"
-            app:argType="string" />
+            app:argType="integer" />
     </fragment>
 </navigation>

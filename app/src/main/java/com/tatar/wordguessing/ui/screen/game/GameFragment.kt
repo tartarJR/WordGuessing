@@ -30,7 +30,7 @@ class GameFragment : Fragment() {
         setBinding(inflater, container)
         setEventObservations()
         setBuzzer()
-        
+
         return binding.root
     }
 
@@ -68,7 +68,7 @@ class GameFragment : Fragment() {
     }
 
     private fun finishGame() {
-        findNavController(this).navigate(GameFragmentDirections.actionGoToScoreFragment(viewModel.score.value!!))
+        findNavController(this).navigate(GameFragmentDirections.actionGoToScoreFragment(viewModel.getScore()))
         viewModel.onGameEndCompleted()
     }
 }

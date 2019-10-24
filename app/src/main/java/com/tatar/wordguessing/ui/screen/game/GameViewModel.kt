@@ -82,6 +82,10 @@ class GameViewModel : ViewModel(), GameResponse {
         _buzzEvent.value = BuzzType.NO_BUZZ
     }
 
+    fun getScore(): Int {
+        return score.value!!
+    }
+
     override fun onCleared() {
         super.onCleared()
         gameTimer.stopGameTimer()
